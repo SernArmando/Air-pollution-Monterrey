@@ -1,0 +1,539 @@
+\chapter{Antecedentes y Aplicaciones}
+
+En este capítulo se menciona el estado del arte que implementa este trabajo. Primero, se describen los resultados y técnicas que se han aplicado en el AMM para describir los niveles de contaminación del aire y se plantea la razón por la cual en este trabajo se implementan los métodos de interpolación espacial. Luego, se enuncian los antecedentes y algunas aplicaciones en orden cronológico de los métodos de interpolación utilizados en este trabajo: Teselaciones de Voronoi (TV), Funciones de Base Radial (FBR), Distancia Inversa Ponderada (DIP), Kriging Ordinario (KO) y Kriging Universal (KU).
+
+\section{Calidad del Aire en el AMM}
+
+El Sistema Integral de Monitoreo Ambiental (SIMA) del gobierno del estado de Nuevo León, es el organismo gubernamental encargado de reportar y dar a conocer a la población residente del AMM sobre los estándares o niveles de contaminación del aire, que se puede traducir en calidad del aire del AMM.
+
+Actualmente, el SIMA cuenta con trece estaciones de monitoreo de calidad del aire bajo su responsabilidad, el sistema consiste en recopilar muestras de aire en los monitores y guardarlos en una base de datos. Estas estaciones de monitoreo (no todas) empezaron a trabajar desde 1993, sin embargo por cuestiones técnicas o ambientales los datos no se han podido registrar desde entonces por lo que los datos presenta ausencia de información en el periodo de tiempo 1993--2019. 
+
+Una debilidad que presentan las redes de monitoreo (conjunto de estaciones de monitoreo) es que las mediciones tomadas por un medidor solo representa un microambiente geoespacial de contaminantes del aire, es aquí donde entra el problema de SIMA, ya que al contar con trece estaciones no es posible representar la calidad y contaminación del aire sobre toda el AMM.
+
+Se han hecho reportes de la calidad del aire que muestran que el AMM presenta mala calidad del aire desde 1993: y a continuación se mencionan cronológicamente algunos resultados obtenidos sobre ésta. Cabe destacar que aunque se han hecho varias técnicas para describir la calidad del aire en el AMM, hasta la fecha no se ha implementado la idea de interpolar las mediciones de la muestras conocidas en las trece estaciones para tratar de describir la calidad del aire del AMM.
+
+En 1977, se publicó en la revista \textit{Salud Pública de México} en su volúmen XIX, el artículo ``Información de la calidad en algunas ciudades del país", donde se menciona que la actividad industrial, la circulación vehicular, la erosión terrestre, el viento, la lluvia, el clima, la topografía y la actividad humana son factores responsables de la calidad del aire.
+
+También, hace referencia a algunas propuestas para estudiar la calidad del aire por parte del gobierno, las cuales se mencionan a continuación:
+
+\begin{itemize}
+\item A fines de la década 1950 en la Dirección de Higiene Industrial de la Secretaría de Salubridad y Asistencia, se empezaron diversos estudios sobre la calidad del aire metropolitano en distintas ciudades, incluida Monterrey.
+\item Más tarde en 1966, se inició un programa de estudio de la contaminación atmosférica que fue reforzado con un convenio entre la Organización Panamericana de la Salud y el Gobierno de los Estados Unidos Mexicano.
+\item Hasta el día 31 de enero de 1977 se logró activar el programa en algunos estados de la República Mexicana como son: el Área metropolitana del Valle de México; Guadalajara. Jal.; Monterrey. N.L.; Ciudad Juárez. Chih.; Tijuana y Mexícali, B.C., donde fueron determinados los niveles de concentración de partículas en suspensión. En algunos sitios se investigó la precipitación pluvial,  la distribución del tamaño de las partículas, las concentraciones de bióxido de azufre y de ozono.
+
+En resumen, el 31 de enero de 1977 estaban instaladas y en operación cuarenta y ocho unidades muestreadoras
+de partículas en suspensión en grandes volúmenes de aire, distribuidas en Ia forma siguiente:
+
+\begin{itemize}
+\item 22 en el área del Valle de México.
+\item 10 en Guadalajara. Jal.
+\item 10 en Monterrey. N.L.
+\item 2 en Ciudad Juárez. Chih.
+\item 2 en Tijuana. B.C.
+\item 2 en Mexicali, B.C.
+\end{itemize}
+\end{itemize}
+
+En la figura \ref{red_1977}, se presenta un dibujo con las ubicaciones geográficas de diez estaciones de monitoreo del aire en el AMM.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=130mm]{./red_aire_1977}
+\caption{Red de monitoreo del aire localizado en Monterrey N.L.}
+\label{red_1977}
+\end{figure}
+
+\begin{itemize}
+\item En 2002, como parte de las publicaciones periódicas por la universidad Tecnológico de Monterrey, campus Monterrey, se publicó en la revista \textit{Calidad Ambiental, Elemento Esencial para el Desarrollo Sostenible} en su volumen VII, un análisis que resume diez años de mediciones sobre la calidad del aire del AMM, en el artículo ``Análisis de las Mediciones de la Calidad del Aire en el Área Metropolitana de Monterrey: SIMA (1993--2001)'', donde se menciona que las mediciones de la calidad del aire son componentes primordiales para entender, modelar, simular, pronosticar y desarrollar programas para el control de la contaminación atmosférica. También, alude que las mediciones son el registro histórico para verificar y actualizar la efectividad de los diversos programas implantados para la reducción o control de la contaminación urbana.
+
+El programa SIMA del estado de Nuevo León contaba en 2002, con cinco estaciones de monitoreo en: Santa Catarina (suroeste, SO), San Bernabé (noroeste, NO), Obispado (centro, C), San Nicolás (noroeste, NE) y La Pastora (sureste, SE). Los contaminantes monitoreados en las cinco estaciones son: Monóxido de carbono (CO), partículas menores a diez micras (PM$_{10}$), ozono (O$_{3}$), óxidos de nitrógeno (NO y NO$_{2}$) y bióxido de azufre (SO$_{2}$); y los parámetros meteorológicos medidos son: dirección del viento, velocidad del viento y temperatura ambiental.
+
+Para informar en forma clara y sencilla los niveles de contaminación existentes se utilizó el \textit{Índice Metropolitano de Calidad del Aire} (IMECA). Un valor de cien puntos IMECA se establece cuando el contaminante se encuentra en una concentración igual a la norma de calidad. Véase tabla 2.1 a tabla 2.7.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \caption{Cumplimiento a las Normas de Calidad de Aire en la AMM (1993--2000)}
+	\begin{adjustbox}{max width=0.9\textwidth}
+    \begin{tabular}{|c|r|r|r|r|r|c|}
+\hline
+         & Max/Min &\multicolumn{2}{|c|}{Norma de Calidad}  &  &\multicolumn{2}{c|}{Incumplimientos} \\ \hline
+         & &ppmv &Horas &Número &Máximo ppmv &Región del máximo \\ \hline
+        CO &1.17 &11.0 &8 &6 &12.9 &NE \\
+        PM$_{10}$  &1.8 &150.00 (a) &24 &336 &271 (a) &SO \\
+        O$_{3}$  &1.78 &0.11 &1 &152 &0.194 &NO\\
+        NO$_{2}$  &1.34 &0.21 &1 &1 &0.281 &C  \\
+        SO$_{2}$  &0.68 &0.13 &24 &0 &0.089 &NE\\\hline
+	\multicolumn{7}{|c|}{(a) La norma y las concentraciones medidas para PM$_{10}$ están en $ug/m^{3}$.}  \\\hline
+        \end{tabular}
+\end{adjustbox}
+    \label{cumplimiento}
+\end{table}
+
+En la tabla \ref{cumplimiento}  los contaminantes de PM$_{10}$ y Ozono, son los contaminantes que han tenido los máximos puntos IMECA. Esto es, en situaciones ambientales severas en Monterrey los IMECAs se aproximan a 200 puntos.
+
+\begin{table}[H]
+    \centering
+    \caption{Días Arriba de la Norma en la AMM (1993--2000)}
+	\begin{adjustbox}{max width=0.8\textwidth}
+    \begin{tabular}{|c|r|r|r|c|}
+        \hline
+	Año &Totales * &PM$_{10}$ &Ozono &Regiones con más días \\ \hline
+	1993 &80  &44  &37  &SO/NO  \\ 
+	1994 &99  &84  &21  &SO/NO  \\ 
+	1995 &31  &27  &4  &NO/SO  \\ 
+	1996 &62  &40  &24  &NO/SO \\ 
+	1997 &38  &8  &32  &SO/NO \\ 
+	1998 &35  &21  &14  &SO/NO \\ 
+	1999 &93  &84  &8  &NE/NO \\ 
+	2000 &30  &24  &8  &SO/NO \\ 
+	2001 &113  &91  &12  &SO/NO \\ \hline 
+	Total &581  &423  &160  &SO/NO \\ \hline 
+	Promedio &65  &47  &18  &   \\ \hline
+        \end{tabular}
+\end{adjustbox}
+    \label{dias_arriba}
+\end{table}
+
+En la tabla \ref{dias_arriba} se reportaron el número de días que las PM$_{10}$ y Ozono han estado arriba de la norma en Monterrey desde 1993 hasta 2001. Además, indica las regiones con más días arriba de la norma, Ozono ha estado arriba de la norma dieciocho días al año en promedio, mientras que PM$_{10}$ ha rebasado la norma en cuarenta y siete días por año. En total, algunos de los contaminantes ha rebasado la norma en sesenta y cinco días por año, es decir, estos datos implican que la contaminación atmosférica en la AMM es alta 18\% de los días del año (65 días), ya sea debido a Ozono o PM$_{10}$.
+
+\begin{table}[H]
+    \centering
+    \caption{Cumplimiento Anual de IMECAs Máximos en la AMM (1993--2000)}
+    \begin{tabular}{|c|r|r|c|c|r|c|c|}
+        \hline
+	 &Promedio &\multicolumn{3}{|c|}{Máximo de IMECAs Máximos} &\multicolumn{3}{|c|}{Mínimo de IMECAs Máximos} \\ \hline
+	 & &Valor &Región &Año &Valor &Región &Año \\ \hline
+	CO &60 &120 &NE &1996 &30 &SE &2000 \\ 
+	PM$_{10}$ &152 &255 &C &2001 &75 &SE &1997 \\ 
+	O$_{3}$ &117 &192 &NO &2001 &72 &NE &1998 \\ 
+	NO$_{2}$ &69 &117 &C &1993 &31 &NO &1999 \\ 
+	SO$_{2}$ &32 &69 &NE &1994 &10 &C &2000 \\ \hline
+        \end{tabular}
+    \label{max_min}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Regiones con Mayores IMECAs Máximos en la AMM (1993--2000)}
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+	 Año &CO &PM$_{10}$ &Ozono &NO$_{2}$ &SO$_{2}$ \\ \hline
+	 1993 &NE/C &SO/NO &SO/C &C/SO &NE/C \\
+	 1994 &NE/SO &NO/SO &SO/C &C/SO &NE/C \\
+	 1995 &NE/C &NO/NE &SO/NO &SO/NO &NE/C \\
+	 1996 &NE/C &NO/NE &SE/SO &C/NE &NE/NO \\
+	 1997 &NE/C &NO/C &SE/SO &NE/C &NE/NO \\
+	 1998 &NE/SO &NO/SO &NO/SO &C/NO &NE/C \\
+	 1999 &NE/SO &NE/C &SO/NO &NE/SO &NE/NO \\
+	 2000 &NE/SO &SO/NO &NO/SO &NE/SO &NE/NO \\
+	 2001 &NE/C &C/SE &NO/SO &NE/SO &NE/NO \\ \hline
+        \end{tabular}
+    \label{mayores_max}
+\end{table}
+
+La tabla \ref{max_min} muestra los máximos y mínimos que ocurrieron de 1993 a 2001 reportando la región y el año de ocurrencia del evento. La tabla \ref{mayores_max} muestra las dos regiones con mayores IMECAs máximos por año y para cada contaminante.
+
+\begin{table}[H]
+    \centering
+    \caption{Cumplimiento Mensual de la Calidad del Aire en la AMM (1993--2000)}
+    \begin{tabular}{|c|r|r|c|c|r|c|c|}
+        \hline
+	 &Relación &\multicolumn{3}{|c|}{Máximo de Promedios} &\multicolumn{3}{|c|}{Mínimo de Promedios} \\ \hline
+	  &Max/Min &ppmv &Mes &Regiones &ppmv &Mes &Regiones \\ \hline
+	CO &3.6 &1.800 &Enero &C/NE &0.5 &Julio &NE/NO \\ 
+	PM$_{10}$ &2.6 &92 (a) &Enero &NO/SO &35 (a) &Septiembre &C/SE\\ 
+	O$_{3}$ &2.7 &0.032 &Abril &SE/SO/NO &0.012 &Enero &C/NE\\ 
+	NO$_{2}$ &5.4 &0.038 &Enero &C/SO &0.007 &Julio &SE/NO\\ 
+	SO$_{2}$ &5.0 &0.025 &Julio &NE &0.005 &Junio &SE \\ \hline
+	\multicolumn{8}{|c|}{(a) La norma y las concentraciones medidas para PM$_{10}$ están en $ug/m^{3}$.}  \\\hline
+        \end{tabular}
+    \label{mensual}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Comportamiento Hora a Hora de la Calidad del Aire en la AMM (1993--2000)}
+    \begin{tabular}{|c|r|r|c|c|r|c|c|}
+        \hline
+	 &Relación &\multicolumn{3}{|c|}{Máximo de Promedios} &\multicolumn{3}{|c|}{Mínimo de Promedios} \\ \hline
+	  &Max/Min &ppmv &Hora &Regiones &ppmv &Hora &Regiones \\ \hline
+	CO  &5.0 &2.0 &7 -- 9 &C/NE &0.4 &15 -- 17 &NO/SE\\ 
+	PM$_{10}$ &5.4 &150 (a) &9 -- 10 &NO/SO &28 (a) &17 -- 18 &SE/C\\ 
+	O$_{3}$ &5.4 &0.054 &12 -- 13 &NE/SO &0.010 &5 -- 7 &C/SO\\ 
+	NO$_{2}$ &5.2 &0.042 &8 -- 10 &C/SE &0.008 &15 -- 16 &SE/NO\\ 
+	SO$_{2}$ &9.3 &0.028 &11 -- 13 &NE &0.003 &6 -- 16 &SE \\ \hline
+	\multicolumn{8}{|c|}{(a) La norma y las concentraciones medidas para PM$_{10}$ están en $ug/m^{3}$.}  \\\hline
+        \end{tabular}
+    \label{hora}
+\end{table}
+
+La tabla \ref{mensual} muestra los máximos y mínimos de los promedios mensuales de cada contaminante de 1993 a 2000, señalando el mes y región donde sucedió el máximo y mínimo. En la tabla \ref{hora}  se muestran las concentraciones promedio hora a hora del periodo que se monitorearon los contaminantes primarios tiene un comportamiento basado en los niveles a tiempo real de: emisiones de aire, condiciones meteorológicas y reactividad química del contaminante para el AMM.
+
+En resumen de las tablas anteriores se puede concluir que:
+\setlength{\parskip}{-1cm}
+\begin{enumerate}
+\item Tabla \ref{cumplimiento}: Todos los contaminantes han rebasado la norma excepto el bióxido de azufre; los contaminantes con los máximos más elevados son las PM$_{10}$ y Ozono, los máximos de Ozono y PM$_{10}$ han llegado hasta 80\% arriba de la norma, y solamente la región SE ha cumplido con las normas.
+\item Tabla \ref{dias_arriba}: La contaminación atmosférica en Monterrey está arriba de la norma de calidad del aire en un 18\% de los días del año debida a Ozono o PM$_{10}$. En promedio la norma de Ozono ha sido rebasada la norma diecinueve días por año y las partículas cuarenta y siete días por año.
+\item Tablas \ref{max_min} y \ref{mayores_max}: En promedio el Ozono es alrededor de 120 puntos y para PM$_{10}$ es 150. También, altos niveles de Ozono se favorecen en las estaciones SO y NO. Altos niveles de PM$_{10}$ suceden en las estaciones NO y SO. Altos niveles de CO y SO$_{2}$ suceden el las estaciones NO y C. El Ozono y las PM$_{10}$ se han incrementado fuertemente en el 2001.
+\item Tabla \ref{mensual}: Las altas concentraciones de Monóxido de carbono, PM$_{10}$ y Bióxido de nitrógeno sucede en diciembre--enero y las bajas en julio--agosto. Mientras que el Ozono presenta altas concentraciones en abril--mayo y sus bajas en diciembre--enero.
+\item Tabla \ref{hora}: Las altas concentraciones de Monóxido de carbono, PM$_{10}$ y Bióxido de nitrógeno, suceden al iniciar la mañana y después del atardecer, y las bajas concentraciones en las últimas horas antes de anochecer. Mientras tanto, el Ozono tiene sus altas concentraciones al iniciar la tarde y sus bajas concentraciones desde el atardecer y durante la noche. En promedio, la contaminación atmosférica en la AMM es al menos cinco veces mayor al iniciar la mañana con respecto al atardecer.
+\end{enumerate}
+\setlength{\parskip}{6mm}
+
+En 2017, el Proyecto de Norma Oficial Mexicana PROY-NOM-172-SEMARNAT-2017, donde se establecen los lineamientos para la obtención y comunicación del {\em Índice de Calidad del Aire y Riesgos a la Salud}, fue aprobado por el Comité Consultivo Nacional de Normalización de Medio Ambiente y Recursos Naturales. Dos años más tarde, después de haberse cumplido el procedimiento establecido en la Ley Federal sobre Meteorología y Normalización para la elaboración de normas oficiales mexicanas, el Comité Consultivo Nacional de Normalización de Medio Ambiente y Recursos Naturales aprobó la Norma Oficial Mexicana NOM-172-SEMARNAT-2019, derivada del proyecto PROY-NOM-172-SEMARNAT-2017 el 10 de octubre de 2019.
+
+Con la implementación de los lineamientos de la Norma Oficial Mexicana NOM-172-SEMARNAT-2019 para la obtención y comunicación del {\em Índice de Calidad del Aire y Riesgos a la Salud}, se establece un método único de cálculo y los lineamientos de difusión que deberán aplicar los gobiernos estatales responsables del monitoreo de la calidad del aire, ya que la importancia del {\em Índice de Calidad del Aire y Riesgos a la Salud} no sólo consiste en informar a la población sobre el estado de la calidad del aire (buena, aceptable, mala, muy mala y extremadamente mala), sino también sobre el nivel de riesgo asociado (probables daños a la salud, dependiendo si el riesgo es bajo, moderado, alto, muy alto o extremadamente alto) y las recomendaciones de las acciones a adoptar (medidas para reducir la exposición), es decir, se busca que la información que reciba la población no solamente se refiera a la calidad del aire, sino que le permita actuar con oportunidad para proteger su salud.
+
+
+Actualmente, SIMA cuenta con trece estaciones de monitoreo, de las cuales se puede observar su ubicación geográfica en la figura \ref{mapa}. Además en la tabla \ref{resumen} se muestran las características de la red de monitoreo de calidad del aire por estación, se puede ver su ubicación geográfica en coordenadas, su elevación con respecto al nivel del mar, el municipio en el que se encuentra y la fecha desde cuando entró en operación cada estación.
+
+
+\begin{table}[H]
+\centering
+\caption{Características de las estaciones de monitoreo del SIMA}
+\begin{adjustbox}{max width=0.9\textwidth}
+\small{\begin{tabular}{lllllll}
+No. & Municipio                                                                        & Zona       & Simbología & \begin{tabular}[c]{@{}l@{}}Coordenadas\\ Geográficas\end{tabular}                                           & Elevación & Operando desde \\  \hline
+1   & \begin{tabular}[c]{@{}l@{}}Guadalupe,\\ Nuevo León\end{tabular}                  & Sureste    & SE         & \begin{tabular}[c]{@{}l@{}}25.668 N, 100.249 W\end{tabular}     & 492 msnm  & 20/Nov/1992    \\ \hline
+2   & \begin{tabular}[c]{@{}l@{}}San Nicolás\\ de los Garza,\\ Nuevo León\end{tabular} & Noreste    & NE         & \begin{tabular}[c]{@{}l@{}}25.75 N, 100.255 W\end{tabular}      & 476 msnm  & 20/Nov/1992    \\ \hline
+3   & \begin{tabular}[c]{@{}l@{}}Monterrey,\\ Nuevo León.\\ Obispado\end{tabular}      & Centro     & CE         & \begin{tabular}[c]{@{}l@{}}25.67 N, 100.338 W\end{tabular}      & 560 msnm  & 20/Nov/1992    \\ \hline
+4   & \begin{tabular}[c]{@{}l@{}}Monterrey,\\ Nuevo León.\\ Sn. Bernabé\end{tabular}   & Noroeste   & NO         & \begin{tabular}[c]{@{}l@{}}25.757 N, 100.366 W\end{tabular}     & 571 msnm  & 20/Nov/1992    \\ \hline
+5   & \begin{tabular}[c]{@{}l@{}}Santa\\ Catarina,\\ Nuevo León\end{tabular}           & Suroeste   & SO         & \begin{tabular}[c]{@{}l@{}}25.676 N, 100.464 W\end{tabular}     & 694 msnm  & 20/Nov/1992    \\ \hline
+6   & \begin{tabular}[c]{@{}l@{}}García,\\ Nuevo León\end{tabular}                     & Noroeste 2 & NO2        & \begin{tabular}[c]{@{}l@{}}25.783 N, 100.586 W\end{tabular}    & 716 msnm  & 24/Jul/2009    \\ \hline
+7   & \begin{tabular}[c]{@{}l@{}}Escobedo,\\ Nuevo León\end{tabular}                   & Norte      & N          & \begin{tabular}[c]{@{}l@{}}25.800 N, 100.344 W\end{tabular}    & 528 msnm  & 22/Dic/2009    \\ \hline
+8   & \begin{tabular}[c]{@{}l@{}}Apodaca,\\ Nuevo León\end{tabular}                    & Noreste 2  & NE2        & \begin{tabular}[c]{@{}l@{}}25.777 N, 100.188 W\end{tabular}    & 432 msnm  & 01/Jun/2011    \\ \hline
+9   & \begin{tabular}[c]{@{}l@{}}Juárez,\\ Nuevo León\end{tabular}                     & Sureste 2  & SE2        & \begin{tabular}[c]{@{}l@{}}25.646 N, 100.096 W\end{tabular}   & 387 msnm  & 01/Oct/2012    \\ \hline
+10  & \begin{tabular}[c]{@{}l@{}}San Pedro\\ Garza\\ García,\\ Nuevo León\end{tabular} & Suroeste 2 & SO2        & \begin{tabular}[c]{@{}l@{}}25.665 N, 100.413 W\end{tabular}   & 636 msnm  & 06/Feb/2014    \\ \hline
+11  & \begin{tabular}[c]{@{}l@{}}Cadereyta\\ de Jiménez,\\ Nuevo León\end{tabular}     & Sureste 3  & SE3        & \begin{tabular}[c]{@{}l@{}}25.36 N, 99.9955 W\end{tabular} & 340 msnm  & 21/Ago/2017    \\ \hline
+12  & \begin{tabular}[c]{@{}l@{}}UANL, San\\ Nicolás,\\ Nuevo León\end{tabular}        & Norte 2    & N2         & \begin{tabular}[c]{@{}l@{}}25.5749 N, 100.2489 W\end{tabular} & 630 msnm  & 04/Oct/2017    \\ \hline
+13  & \begin{tabular}[c]{@{}l@{}}Monterrey,\\ Nuevo León\end{tabular}                  & Sur        & S          & \begin{tabular}[c]{@{}l@{}}25.7295 N, 100.3099 W\end{tabular} & 520 msnm  & 04/Oct/2017   
+\end{tabular} }
+\end{adjustbox}
+\label{resumen}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=130mm]{./mapa}
+\caption{Mapa del AMM con las trece estaciones meteorológicas marcadas por un símbolo de posición geográfica \citep{mapa}}
+\label{mapa}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\caption{Variables y contaminantes medidos por SIMA}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Nombre del contaminante &Nomenclatura SIMA &Nomenclatura MEEAMM &Unidad de medición \\ \hline
+Particulas menores a 10 micras &PM$_{10}$ &PM$_{10}$ &Ugr /m$^{3}$\\
+Particulas menores a 2.5 micras &PM$_{2.5}$  &PM$_{2.5}$ &Ugr /m$^{3}$\\
+Ozono &O$_{3}$ &O$_{3}$ &ppb\\   
+Óxido Nítrico &NO &NO &ppb\\ 
+Bióxido de Nitrógeno &NO$_{2}$ &NO$_{2}$ &ppb\\
+Oxídos de Nitrógeno &NO$_{X}$ &NO$_{X}$ &ppb\\
+Bióxido de Azufre &SO$_{2}$ &SO$_{2}$ &ppb\\
+Monóxido de Carbono &CO  &CO &ppb\\
+Temperatura ambiental &TOUT &Temperature &$^{\circ}$C\\
+Precipitación pluvial &RAINF &Rainfall &mn/h\\
+Humedad relativa &HR &Humidity &\% \\
+Presión barométrica &PRES &Pressure &mnHg \\
+Radiación solar &SR & Solar &kWh/m$^{2}$ \\
+Velocidad del ciento &WSR &Velocity &Km/h \\
+Dirección del viento &WDR &Direction &Grado azimutal\\ \hline
+\multicolumn{4}{|c|}{Abreviación del título de esta tesis Modelos Estadístico Espacial de contaminantes del aire en el AMM (MEEAMM) } \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{variables}
+\end{table}
+
+En las trece estaciones con las que cuenta el SIMA, se miden y registran quince variables, las cuales se muestran en la figura \ref{variables}; en la cual se muestra el nombre de la variable, la nomenclatura asignada por SIMA, la nomenclatura asignada para este trabajo de tesis y que se emplea en el código fuente \citep{sernagit} (MEAMM, pos sus siglas de Modelo Espacial de contaminantes del Área metropolitana de Monterrey) y la unidad en la que se mide cada variable.
+
+Partiendo de las concentraciones base indicadas en la tabla \ref{base} se crea el Índice {\sc AIRE} y {\sc SALUD} con base en la Norma Oficial Mexicana  PROY-NOM-172-SEMARNAT-2017 (ver tabla \ref{base}).
+
+\begin{table}[H]
+\centering
+\caption{Concentraciones base para el cálculo del { \em Índice AIRE y SALUD} para cada contaminante}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|}
+\hline
+Contaminante &Concentración base\\ \hline
+PM$_{10}$ &Concentración promedio móvil ponderado de 12 horas \\
+PM$_{2.5}$ &Concentración promedio móvil de 12 horas \\
+O$_{3}$ &Concentración promedio móvil de 8 horas \\
+CO &Concentración promedio móvil de 8 horas \\
+NO$_{2}$ &Concentración promedio horaria \\
+SO$_{2}$ &Concentración promedio de 24 horas \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{base}
+\end{table}
+
+Las bandas de calidad del aire y riesgo que componen el {\em Índice AIRE y SALUD} se construyen considerando los intervalos de concentración señalados en la Norma Oficial Mexicana PROY-NOM-172-SEMARNAT-2017, según aplique al contaminante criterio. Particularmente, los límites superiores del intervalo de la banda “Aceptable” concuerdan con los valores establecidos en las Norma Oficial Mexicana NOM-020-SSA1-2014.
+
+\begin{table}[H]
+\centering
+\caption{Obtención del {\em Índice AIRE y SALUD} para PM$_{10}$}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo & Intervalo de PM$_{10}$ \\ \hline
+Buena &Bajo &$\leq50$ \\
+Aceptable &Moderado &$>50, \leq75$ \\
+Mala &Alto &$>75, \leq155$ \\
+Muy Mala &Muy Alto &$>155, \leq235$ \\
+Extremadamente Mala &Extremadamente Alto &$>235$ \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{basepm10}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Obtención del {\em Índice AIRE y SALUD} para PM$_{2.5}$}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo & Intervalo de PM$_{2.5}$ \\ \hline
+Buena &Bajo &$\leq25$ \\
+Aceptable &Moderado &$>25, \leq45$  \\
+Mala &Alto &$>45, \leq79$ \\
+Muy Mala &Muy Alto &$>79, \leq147$ \\
+Extremadamente Mala &Extremadamente Alto &$>147$ \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{basepm25}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Obtención del {\em Índice AIRE y SALUD} para O$_{3}$}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo & Intervalo de O$_{3}$ \\ \hline
+Buena &Bajo &$\leq0.051$ \\
+Aceptable &Moderado &$>0.051, \leq0.070$ \\
+Mala &Alto &$>0.070, \leq0.092$ \\
+Muy Mala &Muy Alto &$>0.092, \leq0.114$ \\
+Extremadamente Mala &Extremadamente Alto &$>0.114$ \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{baseo3}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Obtención del {\em Índice AIRE y SALUD} para NO$_{2}$}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo & Intervalo de NO$_{2}$ \\ \hline
+Buena &Bajo &$\leq0.107$ \\
+Aceptable &Moderado &$>0.107, \leq0.210$  \\
+Mala &Alto &$>0.210, \leq0.230$ \\
+Muy Mala &Muy Alto &$>0.230, \leq0.250$ \\
+Extremadamente Mala &Extremadamente Alto &$>0.250$ \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{baseno2}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Obtención del {\em Índice AIRE y SALUD} para SO$_{2}$}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo & Intervalo de SO$_{2}$ \\ \hline
+Buena &Bajo &$\leq0.008$ \\
+Aceptable &Moderado &$>0.008, \leq0.110$ \\
+Mala &Alto &$>0.110, \leq0.165$ \\
+Muy Mala &Muy Alto &$>0.165, \leq0.220$ \\
+Extremadamente Mala &Extremadamente Alto &$>0.220$ \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{baseso2}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Obtención del {\em Índice AIRE y SALUD} para CO}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo & Intervalo de CO \\ \hline
+Buena &Bajo &$\leq8.75$ \\
+Aceptable &Moderado &$>8.75, \leq11.00$  \\
+Mala &Alto &$>11.00, \leq13.30$ \\
+Muy Mala &Muy Alto &$>13.30, \leq15.50$ \\
+Extremadamente Mala &Extremadamente Alto &$>15.50$ \\ \hline 
+\end{tabular}
+\end{adjustbox}
+\label{baseco}
+\end{table}
+
+
+La difusión de riesgos relacionada al {\em Índice AIRE y SALUD} consistirá en el establecimiento de cinco bandas que estarán asociadas a cinco colores (verde, amarillo, naranja, rojo y morado) como se describe en la tabla \ref{categorias}. El Índice AIRE Y SALUD sólo tiene fines de información para prevenir a la población en una ciudad o localidad en una hora determinada, estos riesgos estan asociados a los niveles de contaminación de cada contaminante descritos en la tablas \ref{basepm10}, \ref{basepm25}, \ref{baseo3}, \ref{baseno2}, \ref{baseso2}, y \ref{baseco}.
+
+\begin{table}[H]
+\centering
+\caption{Categorías del {\em Índice AIRE y SALUD}}
+\begin{adjustbox}{max width=0.9\textwidth}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Calidad del aire & Nivel de riesgo  &Color \\ \hline
+Buena &Bajo &Verde \\ \hline
+Aceptable &Moderado &Amarillo \\ \hline
+Mala &Alto &Naranja \\ \hline
+Muy Mala &Muy Alto &Rojo \\ \hline
+Extremadamente Mala & Extremadamente Alto &Morado \\ \hline
+\end{tabular}
+\end{adjustbox}
+\label{categorias}
+\end{table}
+
+
+
+
+
+
+
+
+\section{Métodos de Interpolación}
+
+Esta sección presenta brevemente los diferentes métodos de interpolación utilizados en este trabajo de tesis, como son los ya conocidos; Teselaciones de Voronoi, Funciones de Base Radial, Distancia Inversa Ponderada, Kriging Universal y Kriging Ordinario. Cabe destacar que los métodos de interpolación espacial mencionados difieren en sus supuestos, perspectiva local o global y naturaleza determinista o estocástica.
+
+\subsection{Teselaciones de Voronoi}
+Las Teselaciones de Voronoi o Diagramas de Voronoi (TV) son estructuras geométricas que aparecen con regularidad en la naturaleza, por esta razón se han redescubierto varias veces a lo largo de la historia, reciben su nombre en honor al matemático ruso Georgy Voronoi, también son conocidas como Polígonos de Thiessen (por el meteorólogo estadounidense Alfred Thiessen), Teselación de Dirichlet (por el matemático alemán Peter Gustav Lejeune Dirchlet), Celdas de Wigner-Seitz (por el físico matemático húngaro Eugene Wigner y el físico estadounidense Frederick Seitz) o Zonas de Brillouin (por el físico francés León Nicolás Brillouin \citep{aurenhammer}.
+
+En 1664, el filósofo y matemático francés Descartes afirmó que el sistema solar se compone de \textit{vórtices}; considerados como cualquier tipo de flujo circular o rotatorio que posee vorticidad. Las ilustraciones de Descartes muestran una descomposición del espacio en regiones convexas, donde cada una de éstas está compuesta de la materia que gira alrededor de una de las estrellas fija \citep{aurenhammer}.
+
+En 1850, Dirichlet formalizó el estudio de formas cuadráticas definidas positivas (forma especial de un Diagrama de Voronoi) en $\mathbb{R}^{2}$ y $\mathbb{R}^{3}$ \citep{dirichlet}. Cuatro años depués en 1854, el médico inglés John Snow (padre de la epidemiología moderna), hizo un análisis del brote de cólera que azotó la ciudad de Londres, mediante el uso del método geográfico \citep{doval}.
+
+En 1908, Voronoi precisó el estudio de formas cuadráticas definidas positivas en $\mathbb{R}^{n}$. Un año más tarde en 1909, el geólogo, cristalógrafo y mineralogista ucraniano Boldyrev (Anatoly Kapitonovich) estimó las reservas de minerales en un depósito usando la información obtenida de taladros, nombrando a las regiones de Voronoi \textit{áreas de polígonos de influuencia.}
+
+En 1911, Thiessen analizó datos meteorológicos de estaciones pluviométricas, donde a las regiones las nombró \textit{polígonos de Thiessen}. En 1927, el cristalógrafo suizo Paul Niggli desarrolló la teoría en Cristalografía \citep{manzoor}. Dos años después en 1929, el matemático ruso Boris Deloné (Delaunay) fue el primero en acuñar el término \textit{Dominio de Dirichlet} y el término \textit{Región de Voronoi.}
+
+En 1933,  Wigner y Seitz describieron las regiones de Voronoi para los puntos dispuestos en una retícula en el espacio tridimensional \citep{okabe}. En 1949, el demógrafo estadounidense Donald Bogue, usó los polígonos de Voronoi definidos alrededor de centros metropolitanos.
+
+En 1965, G.\ S.\ Brown estimó la intensidad de población de los árboles en un bosque, definiendo una región de Voronoi para un árbol individual, llamándola el \textit{área potencialmente disponible} (APA) de un árbol \citep{brown}. En 1985, L.\ Hoofd et al. definieron las regiones de Voronoi con respecto a los centros de los capilares en secciones de tejido \citep{turek}. Dos años después en 1987, V.\ Icke y R.\ Van de Weygaert realizaron una partición del espacio por medio de un proceso de diagramas de Voronoi \citep{icke}.
+
+
+
+\subsection{Funciones de Base Radial}
+Las Funciones de Base Radial (FBR) comprenden un gran grupo de interpoladores exactos, los cuales utilizan una \textit{ecuación básica} que depende de la distancia entre los puntos de muestreo y el punto interpolado. Dicha ecuación toma en cuenta que la función de interpolación minimiza una función que representa alguna medida de suavidad \citep{aguilar}.
+
+Un tipo particular de las funciones de base radial son las de \textit{soporte global}, las cuales son funciones infinitamente diferenciables y con valor real no nulo en todos los puntos de su dominio, y donde algunas contienen un parámetro libre, llamado \textit{parámetro de forma}. El uso de este tipo de funciones básicas produce una matriz de interpolación que sirve para interpolar suavemente y generar zonas continuas sobre superficies discontinuas \citep{arias}.
+
+Algunos tipos de funciones de base radial de soporte global más populares en la literatura que se usan en este trabajo son: \textit{Multicuadrática} (FBRM), \textit{Inversa multicuadrática} (FBRIM), \textit{Gaussiana} (FBRG), \textit{Biarmónica} o \textit{Lineal} (FBRL), \textit{Triarmónica} o \textit{Cúbica} (FBRC)y \textit{Thin Plate Spline} (FBRTPS). Todas ellas han tenido buena aceptación debido a que el sistema asociado de ecuaciones lineales resulta ser invertible, incluso si la distribución de los puntos no presenta regularidad \citep{arias}.
+
+En 1977, A.\ Talmi y G.\ Gilat plantearón los antecedentes matemáticos para la construcción de funciones de base radial en su trabajo \textit{Method for Smooth Approximation of Data} \citep{talmi}. La aplicación de estos métodos de interpolación a grandes volúmenes de datos presenta una serie de problemas, como el alto costo computacional, un aumento en la inestabilidad de la solución encontrada y la influencia de todos los puntos de muestreo en cada valor interpolado \citep{lazzaro}.
+
+En 1982, R.\ Franke recomendó que el BRFM es el que proporciona los mejores resultados en términos de evaluación estadística y visual de la superficie modelizada \citep{franke}. Ya que una ecuación de topografía basada en la suma multicuadrática aplica un concepto geométrico simple, donde la suavidad y la forma de la transición entre los puntos de datos están controladas principalmente por las características del cuadricular básico utilizado en la suma \citep{hardy}.
+
+En 1990, R.\ L.\ Hardy comentó que el BRFM funciona bien como método de interpolación, cuando las mediciones de potencial o temperatura en la superficie de la tierra se obtienen en estaciones meteorológicas dispersas \citep{hardy1990}.
+
+En 1992, F.\ Girosi mencionó que las funciones de base radial son un enfoque adecuado cuando la aproximación a las llamadas técnicas de aprendizaje de las redes neuronales conducen a problemas de interpolación de muy alta dimensión con datos dispersos, debido a su disponibilidad en dimensiones arbitrarias y a su suavidad \citep{girosi}.
+
+En 1996, T.\ Sonar utilizó funciones de base radial para la reconstrucción local de soluciones dentro de algoritmos que resuelven leyes de conservación numéricamente hiperbólicas. Hasta entonces era habitual emplear una aproximación polinómica de bajo orden (en su mayoría lineal) para este propósito; pero resultó que las funciones de base radial, especialmente las FBRTPS, ayudan a mejorar la precisión de los métodos de volumen finito, sobre todo para resolver las ecuaciones hiperbólicas, debido a su capacidad para aproximarse localmente con gran precisión \citep{sonar}.
+
+En 2002, A.\ Kremper, T.\ Schanze y R.\ Eckhorn usaron datos provenientes de una pantalla que muestra la lectura de una cámara que sirve como ojo de un robot. Las imágenes representan objetos que el robot debería reconocer, por ejemplo, un muro con el que no debería estrellarse, otro robot, un humano o cualquier otro objeto. Sin embargo, se tuvo el problema que cada uno de estos datos debía interpolarse para que el robot fuera capaz de reconocer otras situaciones similares, ya que las imágenes tenían variaciones como: ángulos, escalas, etc. Para este problema se encontró que usando interpolaciones de FBR, el robot lograba identificar una mayor cantidad de datos \citep{kremper}.
+
+
+
+
+\subsection{Distancia Inversa Ponderada}
+
+La interpolación de Distancia Inversa Ponderada (DIP) se aplica ampliamente por los científicos de la tierra \citep{ware} y en la cartografía automatizada, ya que realiza el cálculo de una superficie cuadriculada bidimensional a partir de un conjunto de puntos dispersos con valores conocidos \citep{armstrong}. En las geociencias, la idea de usar DIP se encuentra encaminada a evaluar la contaminación en un punto de referencia, a partir de las mediciones realizadas por las estaciones de monitoreo \citep{vogl}. DIP se basa en la premisa de que las predicciones son una combinación lineal de datos disponibles \citep{xie}, donde los pesos dependen de la distancia entre las estaciones de monitoreo con un exponente arbitrario y en consecuencia, son exógenos con respecto a los datos \citep{armstrong}.
+
+En 1996, P.\ Bartier y C.\ Keller presentaron una metodología de interpolación que aborda explícitamente la variación de la superficie a través de límites poligonales temáticos. El método de interpolación de DIP se implementó para permitir a los usuarios definir el grado esperado de brusquedad de la superficie a lo largo de los límites temáticos utilizando una matriz de transición. El procedimiento se demostró utilizando como caso de estudio, una superficie interpolada de geoquímica de níquel modificada por límites estratigráficos de terreno \citep{bartier}.
+
+En 2004, R.\ L.\ Hough realizó una evaluación de riesgo de exposición a metales en subgrupos de población que viven y cultivan alimentos en sitios urbanos, donde se utililizó la interpolación por DIP en las concentraciones de metales en las verduras, para evaluar el riesgo de exposición a las poblaciones humanas \citep{hough}.
+
+En 2005, J.\ Currie y M.\ Neidel examinaron el impacto de la contaminación del aire en la muerte infantil en California durante la década de 1990. Aquí utilizaron DIP en niveles de contaminación de CO del aire y descubrieron que las reducciones en el monóxido de carbono durante la década de 1990 salvaron aproximadamente 1000 vidas infantiles en California \citep{currie}.
+
+En 2009, O.\ Babak y C.\ V\ Deutsch presentaron un enfoque para integrar controles estadísticos, como la mínima varianza de error en la interpolación de DIP. Mencionando que el exponente óptimo y el número de datos pueden calcularse global o localmente, y que las medidas de incertidumbre y suavidad local pueden derivarse de estimaciones de DIP \citep{babak}.
+
+En 2012, F.\ Chen y C.\ Liu utilizaron DIP para estimar la distribución de lluvia en Taiwán, con un total de cuarenta y seis estaciones y datos de lluvia entre 1981 y 2010, de las cuales doce estaciones pertenecientes a la Asociación de Riego de Taichung (TIA), se usaron para la validación cruzada. Encontrando que los parámetros óptimos para DIP en la interpolación de datos de lluvia tienen un radio de influencia de hasta 10--30 km en la mayoría de los casos y que, usando DIP en estos datos de interpolación pueden obtenerse resultados más precisos durante la estación seca que en la temporada de inundaciones. En conclusión, obtuvieron que los altos valores de coeficiente de correlación (más de 0.95) confirmaron a DIP como un método adecuado de interpolación espacial para predecir los datos probables de lluvia en Taiwán \citep{chen}.
+
+
+
+\subsection{Kriging Ordinario}
+
+El término {\em Krigeage} fue acuñado por P.\ Carlier en reconocimiento de D.G.\ Krige por su innovación pionera para estimar las concentraciones de oro y otros metales en el suelo \citep{oliver}.
+
+El método Kriging Ordinario (KO) predice valores en sitios no visitados a partir de datos de muestra dispersos, basados en un modelo estocástico de variación espacial contínua; teniendo en cuenta conocimiento de la variación espacial representada en el \textit{variograma} o \textit{función de covarianza}. 
+
+En 1963, G.\ Matheron en su libro \textit{Principles of geostatistics} introdujo al idioma inglés el termino \textit{Kriging} \citep{matheron1963} y dos años después, en 1965, en su tesis doctoral colocó la técnica dentro del marco de la teoría de procesos aleatorios \citep{matheron1965}. El trabajo de Matheron no estaba aislado, ya que trabajos como los de; Andréi \citet{kolmogorov1939,kolmogorov1941}, Herman \citet{wold} y \citet{wiener}, ya habían llegado cerca del kriging, pero en el tiempo más que en el espacio \citep{cressie1990}.
+
+En 1990, M.\ Oliver y R.\ Webster comentaron que los sistemas de información geográfica pueden mejorarse agregando procedimientos para el análisis espacial geoestadístico a las estaciones de monitoreo existentes, ya que los datos distribuidos espacialmente se comportan más como variables aleatorias, donde la teoría de variables regionalizadas proporciona un conjunto de métodos estocásticos que minimizan el error de predicción \citep{oliver1984}.
+
+En 1994, R.\ Dimitrakopoulos y X.\ Luo aludieron que se puede usar una representación general de `anisotropía zonal' para una covarianza espacio-temporal positiva. Se demostró que una covarianza espacio-temporal definida estrictamente positiva, se puede asegurar la unicidad de la solución del sistema Kriging \citep{dimitrakopoulos}. Aquí resultados de Dimitrakopoulos y Luo se basaron en el enfoque de \citet{buxton}, así como en los de \citet{bilonick2, bilonick1}.
+
+En 2004, L.\ Bel utilizó un estimador no paramétrico y un modelo de transporte químico para producir mapas de concentración de Ozono sobre el área de París y compararlos con los mapas obtenidos con los métodos de Kriging clásicos. Bel mostró que al tener  pocas estaciones KO resulta ser malo interpolando cuando se aplíca con los estimadores clásicos \citep{bel}.
+
+En 2007, M.\ Villatoro, C.\ Henríquez y F.\ Sancho hicieron una comparación entre KO y DIP de mediciones de materiales en el suelo. Para el KO se calcularon los semivariogramas y también se determinó que el modelo esférico fue el de mejor ajuste. Ambos métodos tuvieron un desempeño similar, el KO fue superior al predecirlo de una mejor manera \citep{villatoro}.
+
+En 2015, O.\ Delgado y J.\ Martínez emplearon el método KO para construir el mapa de ruido de la Ciudad de Cuenca, Ecuador; su trabajo partió con la determinación de los sitios de muestreo sobre la base de la densidad de tráfico, luego se registraron las mediciones de ruido ambiente y posteriormente se sistematizó y evaluó la información levantada a través del método KO, con lo cual se elaboró el mapa de ruido de la ciudad \citep{delgado}.
+
+Formas más elaboradas de Kriging se encuentran desarrollando para abordar problemas cada vez más complejos en la ingeniería petrolera, minería y geología, meteorología, ciencia del suelo, agricultura de precisión, contaminación, salud pública, pesca, ecología vegetal y animal, teledetección e hidrología.
+
+
+
+\subsection{Kriging Universal}
+
+El método Kriging Universal (KU) a diferencia del método KO supone que la media de los datos $m(x)$ tiene una dependencia funcional de la ubicación espacial y puede ser aproximada por un modelo con la ecuación \citep{kumar}:
+\begin{equation}
+ \mu(x) = \sum_{i=1}^{k} a_{i}f_{i}(x),
+\end{equation}
+donde $a_{i}$ son los coeficientes a estimar a partir de los datos, $f_{i}$ es una función básica de coordenadas espaciales y $k$ es el número de funciones utilizadas en el modelo.
+
+En 1988,  S.\ Dingman,  D.\ Seely y R.\ Reynolds estudiaron las mediciones de los equilibrios químicos y del agua para las cuencas de drenaje y los cuerpos de agua superficiales. Mencionando que los errores en sus predicciones usando KU pueden deberse a fallas de los medidores individuales para recolectar la cantidad de precitación que realmente cae, errores del operador o fallas de la red de regado para muestrear adecuadamente la región de interés. Sus resultados mostraron que el KU a diferencia de KO presenta un error considerablemente más paqueño, por lo que es preferible como base para estimaciones puntuales \citep{dingman}.
+
+En 2002, P.\ Kanaroglou, N.\ Soulakellis y N.\ Sifakis demostraron que el KU puede usarse para obtener estimaciones razonables para datos con valores faltantes para la evaluación de la distribución espacial de contaminantes del aire. Usaron imágenes de satélite implementando el método de Análisis de Textura Diferencial, el cual se utiliza para medir el espesor óptico del aerosol en lo visible, que se correlaciona altamente con la calidad del aire. Con este método, la presencia de nubes o cambios en la cobertura del suelo producen parches de valores perdidos, los que se recuperaron usando KU \citep{kanaroglou}.
+
+En 2011, L.\ Mercer et al. mencionaron que el método KU es un buen método de interpolación para, valga la redundancia, interpolar mediciones de nitrógeno (NO$_{X}$) en Los Ángeles, C.A. \citep{mercer}. Dos años después en 2013, P.\ Sampson et. al. presentaron un modelo de KU para interpolar datos de partículas menores a dos punto cinco micras (PM$_{2.5}$), de estaciones de monitoreo en los EE.\ UU., reflejando un nivel muy alto de precisión de predicción bajo el método de validación cruzada \citep{sampson}.
+
+En 2016, I.\ Ki\v{s} et al. hicieron una comparación entre los metodos KO Y KU, sus resultados arrojaron que el método KU predice mejor que KO cuando los datos presentan una tendencia espacial lineal, ya que esta técnica se desarrolló precisamente para identificar y calcular tendencias en los datos, es decir, para describir la regresión y dar mejores resultados de mapeo \citep{kivs}.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

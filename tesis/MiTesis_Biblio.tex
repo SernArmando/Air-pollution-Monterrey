@@ -1,0 +1,115 @@
+%%%%%%%%%%%%%%%%%%%%%
+% Documento maestro %
+%%%%%%%%%%%%%%%%%%%%%
+\documentclass{fime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cargando paquetes y definiendo opciones %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aquí puedes cargar los paquetes que vas a usar. La clase
+% fime ya incluye babel, inputenc, graphicx y los de la AMS.
+% Cargar un paquete está a tu libertad (y responsabilidad).
+\usepackage{hyperref}
+    \hypersetup{breaklinks=true,colorlinks=true,
+        linkcolor=black,citecolor=black,urlcolor=blue}
+%\usepackage{titlesec}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{dsfont}
+\usepackage{amssymb, amsmath, amsbsy} 
+\usepackage{adjustbox}
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{\textit{Definición}}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6mm}
+
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{verbatim}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Definiendo campos %
+%%%%%%%%%%%%%%%%%%%%%
+\def\titulo{Modelos estadístico-espaciales de contaminantes del aire en el Área Metropolitana de Monterrey}
+\def\autor{Jorge Armando Serna Mendoza}
+\def\matricula{1985281}
+\def\grado{Maestría en Ciencias de la Ingeniería }
+% En caso de que el grado tenga orientación o especialidad llenar el siguiente
+% campo dejando un ESPACIO INICIAL, en caso contrario, dejar vacío
+\def\orientacion{con Orientación en Sistemas}
+\def\fecha{Noviembre 2020} % Coloca el mes con mayúscula inicial
+
+\def\asesor{Dr. José Arturo Berrones Santos}
+\def\revisorA{Dra. Satu Elisa Schaeffer}
+\def\revisorB{Dra. Bibiana Obregón Quintana}
+% En el caso de que tu tesis sea de doctorado activa la variable cambiándola a \doctoradotrue
+% y define tus otros dos revisores
+\newif\ifdoctorado\doctoradofalse
+\def\revisorC{Nombre del revisor C}
+\def\revisorD{Nombre del revisor D}
+% El visto bueno siempre va
+\def\vobo{Dr. Simón Martínez Martínez}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Inicia el documento %
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\frontmatter
+\pagestyle{main}
+
+%%% Incluye PortillasM si tu tesis es de Maestría
+%%% y PortillasD si es de doctorado.
+\include{Portadas}
+\include{Dedicatoria}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\include{Agradecimientos}
+
+
+\mainmatter
+\pagestyle{fime}
+
+%%% Haz un documento para cada capítulo
+\include{Resumen}
+\include{Introduccion}
+\include{Antecedentes}
+\include{Marco_Teorico}
+\include{MetodologiaExperimentacion}
+\include{ResultadosConclusiones}
+
+
+\appendix
+%%% Haz un documento para cada apéndice
+%\include{Apendice}
+
+\backmatter
+\pagestyle{main}
+
+%%% Aquí va la bibliografía, puedes usar el entorno de LaTeX (thebibliography)
+%%% o la herramienta BibTeX. En caso de que optes por BibTeX, puedes usar
+%%% alguno de los archivos de estilo (mighelbib.bst o mighelnat.bst) incluidos
+%%% en el paquete, cuyos diseños armonizan con el diseño de tesis provisto por
+%%% fime.cls. Para muestra, basta un botón:
+
+
+\bibliographystyle{mighelnat}
+%\bibliographystyle{unsrt}
+\bibliography{BiblioTesis}
+
+
+\include{Autobiografia}
+
+\end{document}

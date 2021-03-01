@@ -1,0 +1,86 @@
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6mm}
+
+
+\chapter{Introducción}
+
+En este capítulo se presenta la introducción de este trabajo de tesis, donde se menciona el panorama general del problema de contaminación del aire en la Área Metropolitana de Monterrey (AMM) y cómo esta mala calidad del aire influye en la calidad de vida de sus residentes. Luego, continúa con la definición del problema, donde se delimita el área de estudio de este trabajo; seguido del objetivo, las hipótesis, alcance, motivación y justificación del presente trabajo.
+
+\section{Panorama General}
+
+Las ciudades o zonas metropolitanas son por naturaleza agrupamientos de personas y actividades, que por lo general son los lugares del planeta que presentan los niveles más altos de contaminación \citep{fenger}. Las actividades diarias en zonas metropolitanas generan una gran cantidad de sustancias contaminantes que modifican la composición del aire, sumado a esto, la dirección del viento propicia el esparcimiento e interacción de sustancias entre distintos lugares, es decir, las sustancias presentes en un determinado lugar pueden haber sido generadas ahí o pudieron  haber llegado de algún de otro lugar \citep{mayer}.
+
+La presencia de dichas sustancias contaminantes provoca el deterioro de la calidad del aire, el cual propicia efectos dañinos en el medio ambiente y en la salud humana. Actualmente (octubre de 2020) el Área Metropolitana de Monterrey (AMM) presenta problemas de calidad del aire, debido al aumento de las actividades dentro de ésta, como son los centros de trabajo, centros de estudio, centros comerciales, entre otros.
+
+El AMM cuenta con trece estaciones fijas de monitoreo bajo el encargo del Sistema Integral de Monitoreo Ambiental de la Secretaría de Desarrollo Sustentable del Gobierno de Nuevo León (SIMA), las cuales algunas de ellas han estado en funcionamiento desde el año 1993.  Los datos registrados por las estaciones de monitoreo dan una indicación de las tendencias en la calidad del aire en el AMM, sin embargo, las estaciones de monitoreo están ubicadas en sitios fijos, por lo que la información reportada solo representa microambientes alrededor de ellas.
+
+Los estudios de evaluación de la calidad del aire tienen altos costos de muestreo o análisis, ya que se requiere de equipos de alta tecnología. Además, el representar el comportamiento de la calidad del aire con pocos puntos es un problema retante y los datos resultan ser falsos cuando se extrapolan sobre toda la región,  especialmente en las zonas metropolitanas de países en desarrollo \citep{bayraktar}.
+
+En este trabajo, las mediciones de los contaminantes del aire de las trece estaciones de monitoreo se consideran para la determinación de puntos espaciales críticos sobre el AMM, a través de métodos de interpolación espacial deterministas y probabilísticos, para predecir valores desconocidos en  puntos no muestreados en el AMM, a partir de los valores conocidos de los puntos muestreados en las trece estaciones de monitoreo.
+
+Diferentes métodos pueden producir resultados de puntos interpolados  distintos \citep{tang}, por lo que se requiere una comprensión completa del problema para encontrar métodos de interpolación adecuados para la región del AMM.
+
+
+\subsection{Definición del Problema}
+
+En el área de gobernación, la obligación de informar a la población sobre la calidad del aire donde residen sus habitantes es importante para establecer medidas preventivas que cuiden la salud de los habitantes. Adémas, la necesidad de conocer las mediciones históricas en una ciudad son importantes para verificar y actualizar la efectividad de los programas implementados para el control o reducción de la contaminación urbana. Sumado a esto, en el área científica los datos de mediciones de aire son componentes primordiales para entender, modelar, simular, interpolar, pronosticar y desarrollar modelos que encaminen a la creación de programas para el control de la contaminación atmosférica \citep{sima}.
+
+Resultados de estudios científicos internacionales de la salud pública han propiciado a la creación de las Normas Oficiales Mexicanas (NOM), las cuales definen las concentraciones y los tiempos de exposición en los que un ciudadano pueda desenvolverse sin que su salud se vea afectada \citep{sima}. Dichas normas han sido aplicadas en el AMM y los resultados han mostrado que, desde el año 1993, la calidad del aire en el AMM ha inclumpido con las normas de calidad del aire establecidas por la NOM, es decir, año tras año se han registrado días que presentan mediciones de contaminantes mayores a las permitidas.
+
+Es así que este trabajo contribuye con la selección de un modelo de interpolación espacial que mejor describa el compartamiento de contaminantes en el AMM. Dichos modelos utilizados en este trabajo, calculan valores de contaminantes en lugares dentro del AMM, donde se desconocen los niveles de contaminación, haciendo uso únicamente de los valores observados en las trece estaciones, luego este trabajo continúa con la creación de mapas que describen el comportamiento de los contaminantes del aire en el AMM, con la premisa de encontrar un modelo que describa lo mejor posible el sistema del aire en el AMM, ya que el organismo encargado de las mediciones de la calidad del aire en el AMM solo cuenta con trece estaciones de monitoreo.
+ 
+ 
+\subsection{Objetivo}
+
+El objetivo principal de este trabajo es encontrar un modelo de interpolación espacial que mejor represente los niveles de contaminación del aire en el AMM, para así continuar con la generación de mapas que describan los niveles de contaminación en la ciudad. Además, este trabajo tiene como objetivos secundarios encontrar factores que contribuyan a los niveles altos de contaminación del aire en el AMM, así como la determinación de puntos espaciales críticos dentro de la ciudad donde es importante establecer una nueva estación de monitoreo.
+
+
+
+\subsection{Hipótesis}
+
+Es posible estimar niveles de contaminación del aire en puntos geográficos no muestreados dentro del AMM con un nivel de error tolerable, a partir de implementar metódos de interpolación geoespaciales y deteministas, utilizando los datos de las estaciones de monitoreo del SIMA.
+
+\subsection{Alcance}
+
+Este trabajo utiliza datos reportados de trece estaciones fijas de monitoreo en el AMM, bajo el cargo del SIMA de la Secretaría de Desarrollo Sustentable del Gobierno de Nuevo León. Algunas estaciones de monitoreo reportan datos desde el año 1993 y actualmente se mantienen operando, aunque algunas se encuentren en estado de mantenimiento.
+
+
+\subsection{Motivación}
+
+En la Constitución Política de los Estados Unidos Mexicanos se encuentran estipulados el derecho humano a la salud y al medio ambiente saludable, es por esto que es de vital importancia que la normatividad mexicana evolucione para hacer respetar estos derechos. Si bien, el Principio de Progresividad consiste en la obligación del Estado de generar, en cada momento de la historia, una mayor y mejor protección de los derechos humanos, es así que siempre deberá de estar en constante evolución y bajo ninguna justificación en retroceso. Es por esto que se establece una obligación por parte del Estado de monitorear la calidad del aire y de comunicar los resultados a la población \citep{gpm}.
+
+En México el uso de índices de calidad del aire como método de comunicación de riesgo ha evolucionando de manera diferente entre entidades del país, ya que mientras existen entidades como la Ciudad de México y el Estado de México, donde hay antecedentes de intervención que van más allá de los años ochentas y que, actualmente cuentan con una normatividad local al respecto; hay otras entidades como Nuevo León, Baja California, Chiapas, Chihuahua, Coahuila, Durango, Nayarit, Veracruz, Jalisco, Hidalgo, Guanajuato, Querétaro y Oaxaca; donde se han hecho esfuerzos más recientes para desarrollar sus propios índices, pero que carecen de un documento oficial en el que se defina el significado del mismo y los lineamientos para su generación, uso y difusión.
+
+Recientemente, se han encendido alarmas ambientales decretadas en Monterrey, Nuevo León, sobre la mala calidad del aire, que posiciona a la ciudad como una de las más contaminadas del país, en lo que se refiere a material particulado, como el PM$_{10}$ y el PM$_{2.5}$ \citep{gpm}.
+
+En el año 2018, doscientos cuatro días del año superaron los límites máximos de contaminantes en el aire establecidos en las normas ambientales \citep{oms}. En estos días, contaminantes como PM$_{2.5}$ y PM$_{10}$ ponen en riesgo la salud de la población del AMM, sobre todo si se encuentra expuesta al exterior.
+
+La exposición al exterior durante días que superan el límite máximo de contaminación por periodos cortos o prolongados, puede producir en las personas enfermedades respiratorias y cardiovasculares, como neumonía, asma, gripe, cáncer e incluso la muerte; viéndose afectados principalmente niños y personas mayores \citep{oms}. Además el estado de Nuevo León es uno de los que reporta mayores promedios de días de hospitalización en pacientes de cero a cuatro años de edad por asma \citep{napm}.
+
+El impulso de esta tesis está enfocado en el problema de identificar, analizar y proponer un modelo que caracterice a la red de calidad del aire en el AMM, con el fin de entender su comportamiento y evolución. Además de encontrar características importantes en ésta, para así inferir en cuales son las principales fuentes de contaminación del aire en la red.
+
+\subsection{Justificación}
+
+Ante la persistente mala calidad del aire que se registra en el SIMA \citep{sdsdnl}, es necesario tomar medidas preventivas contra las causas de la contaminación del aire en el AMM, por lo que se propone como metodología el uso de metodos de interpolación geoespaciales y deterministas, como herramientas para identificar, evaluar y analizar dicha problemática.
+
+Además, la contaminación del aire en las ciudades es un grave problema ambiental, especialmente en las ciudades en desarrollo \citep{mayer}, como lo es la actual AMM.  La ruta de contaminación del aire en la atmósfera urbana consiste en la emisión y transmisión de contaminantes del aire que resultan en la contaminación del ambiente \citep{alloway}. Conocer la calidad del aire en el ambiente permite a las personas residentes del AMM saber si es propicio llevar a cabo actividades en el exterior, esto con el fin de implementar medidas preventivas en días con altas concentraciones de sustancias contaminantes que dañan la salud.
+
+La principal razón que vuelve a este tema relevante es la poca eficiencia de métodos empleados para dar solución a la mala calidad del aire en la zona de AMM.
+
+\section{Estructura de la Tesis}
+
+Este trabajo de tesis está organizado como sigue:
+
+\begin{description}
+\item \textbf{Capítulo 1.} Se presenta la introducción de esta tesis, donde se describe la definición del problema, el objetivo, las hipótesis, alcances, motivación y justificación de la tesis. 
+\item \textbf{Capítulo 2.} Se mencionan los antecedentes del marco teórico a seguir en este trabajo y algunas aplicaciones de los métodos usados en este trabajo.
+\item \textbf{Capítulo 3.} Se describe el marco teórico de este trabajo, empezando con el análisis estadístico de los datos haciendo uso de series de tiempo, correlaciones y autocorrelaciones. Luego, de describen los conceptos y definiciones de los métodos que se implementaron en este trabajo.
+\item \textbf{Capítulo 4.} Se describe la metodología implementada a partir del marco teórico antes mencionado y se expone cómo fue la experimentación de este trabajo.
+ \item \textbf{Capítulo 5.} Se describen los resultados obtenidos en la experimentación y las conclusiones pertinentes a los resultados, haciendo una comparación con el estado del arte.
+\end{description}
+
+
+
+
+
+
